@@ -1,5 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "build": {
+    "env": {
+      "ENABLE_EXPERIMENTAL_PARALLEL_TYPESCRIPT_BUILD": "1"
+    }
+  },
   "rewrites": [
     {
       "source": "/(.*)",

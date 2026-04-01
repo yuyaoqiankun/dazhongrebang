@@ -1,11 +1,9 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import { serveStatic } from "@hono/node-server/serve-static";
 import { compress } from "hono/compress";
 import { prettyJSON } from "hono/pretty-json";
 import { trimTrailingSlash } from "hono/trailing-slash";
 import registry from "../src/registry.js";
-import robotstxt from "../src/robots.txt.js";
 import NotFound from "../src/views/NotFound.js";
 import Home from "../src/views/Home.js";
 import Error from "../src/views/Error.js";
@@ -29,17 +27,8 @@ app.use(
   }),
 );
 
-app.use(
-  "/*",
-  serveStatic({
-    root: "./public",
-    rewriteRequestPath: (path) => (path === "/favicon.ico" ? "/favicon.png" : path),
-  }),
-);
-
 app.route("/", registry);
 
-app.get("/robots.txt", robotstxt);
 app.get("/", (c) => c.html(<Home />));
 app.get("/docs", (c) => c.html(<Docs />));
 app.get("/health", (c) => {
