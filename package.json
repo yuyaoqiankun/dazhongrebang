@@ -33,7 +33,7 @@
     "dev": "cross-env NODE_ENV=development tsx watch --no-cache src/index.ts",
     "dev:cache": "cross-env NODE_ENV=development tsx watch src/index.ts",
     "build": "tsc --project tsconfig.json",
-    "vercel-build": "tsc --project tsconfig.json",
+    "vercel-build": "node -e \"const fs=require('node:fs'); const walk=(dir)=>{ if(!fs.existsSync(dir)) return; for(const entry of fs.readdirSync(dir,{withFileTypes:true})){ const full=dir+'/'+entry.name; if(entry.isDirectory()) walk(full); else if(/\\.(js|d\\.ts|d\\.ts\\.map|js\\.map)$/.test(entry.name)) fs.rmSync(full,{force:true}); }}; walk('src'); walk('api');\" && tsc --project tsconfig.vercel.json",
     "start": "cross-env NODE_ENV=development node dist/src/index.js"
   },
   "type": "module",

@@ -13,9 +13,10 @@ const formatTime = (timestamp?: number) => {
   return dayjs(timestamp).format("MM-DD HH:mm");
 };
 
-const formatHot = (hot?: number) => {
+const formatHot = (hot?: string | number) => {
   if (hot === undefined || hot === null) return "-";
-  return hot.toLocaleString("zh-CN");
+  if (typeof hot === "number") return hot.toLocaleString("zh-CN");
+  return hot;
 };
 
 const getTargetUrl = (item: ListItem) => item.mobileUrl || item.url;
