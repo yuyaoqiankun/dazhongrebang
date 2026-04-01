@@ -14,7 +14,7 @@ import Error from "./views/Error.js";
 import Docs from "./views/Docs.js";
 import Health from "./views/Health.js";
 import { getHealthSummary } from "./utils/health.js";
-import { isAuthorized, isJsonRequest, unauthorizedResponse } from "./utils/auth.js";
+import { isJsonRequest } from "./utils/auth.js";
 
 const app = new Hono();
 
@@ -64,9 +64,6 @@ app.get("/docs", (c) => c.html(<Docs />));
 // health
 app.get("/health", (c) => {
   const summary = getHealthSummary();
-  if (isJsonRequest(c) && !isAuthorized(c)) {
-    return c.json(unauthorizedResponse(), 401);
-  }
   if (isJsonRequest(c)) {
     return c.json({ code: 200, ...summary });
   }

@@ -8,7 +8,7 @@ import All from "./views/All.js";
 import Leaderboard from "./views/Leaderboard.js";
 import { publicRoutes, publicRouteNames } from "./public-routes.js";
 import { initRouteHealth, recordRouteFailure, recordRouteSuccess } from "./utils/health.js";
-import { isAuthorized, isJsonRequest, unauthorizedResponse } from "./utils/auth.js";
+import { isJsonRequest } from "./utils/auth.js";
 
 const app = new Hono();
 
@@ -83,9 +83,6 @@ for (let index = 0; index < allRoutePath.length; index++) {
         }
         return c.json({ code: 500, message: "RSS generation failed" }, 500);
       }
-      if (isJsonRequest(c) && !isAuthorized(c)) {
-        return c.json(unauthorizedResponse(), 401);
-      }
       if (shouldRenderHtml(c.req.header("accept"), c.req.query("format"))) {
         return c.html(<Leaderboard route={listData} />);
       }
@@ -109,9 +106,6 @@ for (let index = 0; index < allRoutePath.length; index++) {
 }
 
 app.get("/all", (c) => {
-  if (isJsonRequest(c) && !isAuthorized(c)) {
-    return c.json(unauthorizedResponse(), 401);
-  }
   if (shouldRenderHtml(c.req.header("accept"), c.req.query("format"))) {
     return c.html(<All routes={publicRoutes} />);
   }
