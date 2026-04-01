@@ -3,8 +3,7 @@
   "build": {
     "env": {
       "ENABLE_EXPERIMENTAL_PARALLEL_TYPESCRIPT_BUILD": "1"
-    },
-    "output": "api"
+    }
   },
   "rewrites": [
     {
