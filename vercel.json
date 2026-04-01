@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "functions": {
-    "api/index.tsx": {
+    "api/entry.tsx": {
       "includeFiles": "src/**"
     }
   },
@@ -13,7 +13,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/api/index.tsx"
+      "destination": "/api/entry.tsx"
     }
   ]
 }
