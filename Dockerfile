@@ -8,7 +8,6 @@ RUN rm -rf /var/cache/apk/*
 # 构建阶段
 FROM base AS builder
 
-RUN npm install -g pnpm
 WORKDIR /app
 
 COPY package*.json tsconfig.json .env.example ./
@@ -19,9 +18,9 @@ COPY public ./public
 RUN [ ! -e ".env" ] && cp .env.example .env || true
 
 # 安装依赖
-RUN pnpm install
-RUN pnpm build
-RUN pnpm prune --production
+RUN npm ci
+RUN npm run build
+RUN npm prune --omit=dev
 
 # 运行阶段
 FROM base AS runner
