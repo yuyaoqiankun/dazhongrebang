@@ -1,8 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "functions": {
-    "api/index.js": {
-      "includeFiles": "dist/**"
+    "api/index.tsx": {
+      "includeFiles": "src/**"
     }
   },
   "build": {
@@ -13,7 +13,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/api/index.js"
+      "destination": "/api/index.tsx"
     }
   ]
 }
