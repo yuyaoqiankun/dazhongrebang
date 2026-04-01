@@ -11,7 +11,7 @@ FROM base AS builder
 RUN npm install -g pnpm
 WORKDIR /app
 
-COPY package*json tsconfig.json pnpm-lock.yaml .env.example ./
+COPY package*.json tsconfig.json .env.example ./
 COPY src ./src
 COPY public ./public
 
@@ -48,4 +48,4 @@ USER hono
 EXPOSE 6688
 
 # 运行
-CMD ["node", "/app/dist/index.js"]
+CMD ["node", "/app/dist/src/index.js"]
